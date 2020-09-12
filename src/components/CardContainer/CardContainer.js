@@ -16,9 +16,9 @@ import { borders } from '@material-ui/system';
 import Box from '@material-ui/core/Box';
 
 
-const RED_CARD    = "https://cdn.glitch.com/b16215ce-4dc6-4709-8cfd-1b292c2ec80d%2FRed_back.jpg?v=1593120245214";
-const GREEN_CARD  = "https://cdn.glitch.com/b16215ce-4dc6-4709-8cfd-1b292c2ec80d%2FGreen_back.jpg?v=1593120239709";
-const BLUE_CARD   = "https://cdn.glitch.com/b16215ce-4dc6-4709-8cfd-1b292c2ec80d%2Fblue_back.jpg?v=1593126050558";
+import RED_CARD  from  '../../Assets/JPEG/Red_back.jpg';
+import GREEN_CARD from "../../Assets/JPEG/Green_back.jpg";
+import BLUE_CARD   from "../../Assets/JPEG/blue_back.jpg";
 
 
 const CardContainer = ({ users , room,card,status, readyFlag }) => (
