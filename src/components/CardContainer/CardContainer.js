@@ -30,7 +30,7 @@ const CardContainer = ({ users , room,card,status, readyFlag }) => (
            
                
                 <Grid item xl={6}   >   
-                <img width={"110"} justifyContent="center"  alignItems="center" alt={card.name} src={((readyFlag === "1") ? (card.img) : (status === "Very Close" ? RED_CARD: (status === "Close" ? BLUE_CARD: BLUE_CARD))) }/>
+                <img width={"110"} justifyContent="center"  alignItems="center" alt={card.image} src={((readyFlag === "1") ? (card.image) : (status === "Very Close" ? RED_CARD: (status === "Close" ? BLUE_CARD: BLUE_CARD))) }/>
                 </Grid>
                
              

@@ -3,6 +3,7 @@ import React from 'react';
 import onlineIcon from '../../icons/onlineIcon.png';
 
 import './TextContainer.css';
+import Box from '@material-ui/core/Box';
 
 const TextContainer = ({ users }) => (
   <div className="textContainer">
@@ -16,9 +17,11 @@ const TextContainer = ({ users }) => (
               <h2>
                 {users.map(({name, myTurn}) => (
                   <div key={name} className="activeItem">
+                     <Box  borderColor={myTurn ? "green": "grey"}  margin="auto" border={3}  borderRadius="10%"> 
                     {name} 
                     <img alt="Online Icon" src={onlineIcon}/>
                     {myTurn ? "Your Turn" : ""}
+                    </Box>
                   </div>
                 ))}
               </h2>
