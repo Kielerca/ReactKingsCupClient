@@ -1,37 +1,28 @@
 import React, { useState, useEffect } from "react";
 import queryString from 'query-string';
 import io from "socket.io-client";
-
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import CardContainer from '../CardContainer/CardContainer';
 import TextContainer from '../TextContainer/TextContainer';
 import DescContainer from '../DescContainer/DescContainer';
-import Messages from '../Messages/Messages';
 import InfoBar from '../InfoBar/InfoBar';
-import Input from '../Input/Input';
-import cardButton from '../Buttons/cardButton';
-
-
-
+import Link from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import { FormControlLabel, Switch } from '@material-ui/core/';
 
 import './Chat.css';
 
-const spacer = " .  ";
+
+let GameOver = false;
 
 const useStyles = makeStyles((theme) => ({
     palette: {
@@ -126,13 +117,13 @@ const Chat = ({ location }) => {
 
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
-  const ENDPOINT = 'localhost:5000';
-
   const [card, setCard] = useState('');
   const [readyFlag, setreadyFlag] = useState('');
   const [userState, setUserState] = useState('');
 
+  const ENDPOINT = 'localhost:5000';
+
+ 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
 
@@ -150,19 +141,24 @@ const Chat = ({ location }) => {
   }, [ENDPOINT, location.search]);
   
   useEffect(() => {
-    socket.on('message', message => {
-      setMessages(messages => [ ...messages, message ]);
-    });
-
+  
     socket.on("updateCard", ({users,  card}) => {
         setUsers(users);
         setCard(card);  
+        setreadyFlag("1") // Show the card
       });
 
     socket.on("updateTurn", ({users, status, turn}) => { 
         setUsers(users);
         setStatus(status);
         setTurn(turn);
+        setreadyFlag("0") // hide card
+
+
+        if (status === "Game Over")
+        {
+            GameOver = true;
+        }
       });
     
     socket.on("roomData", ({ users }) => {
@@ -185,19 +181,24 @@ const Chat = ({ location }) => {
 
   const drawCard = () => 
   {
-
-    setreadyFlag("1") // Show the card
     socket.emit("ShowCard" , true );
-
+    // dont set ready flag in til the response is made in UpdateCard socketon
   };
 
   const placeInCan = (num) => 
   {
     socket.emit("PlaceInCan" , num );
-    setreadyFlag("0") // hide card
+  
     //socket.emit("ShowCard" , false );    
-
   };
+
+  const restartGame = () => 
+  {
+    GameOver = false;
+    socket.emit("PlayAgain" );
+  
+  };
+
 
 
   const classes = useStyles();
@@ -209,7 +210,7 @@ const Chat = ({ location }) => {
 
     
    
-<Container component="main" maxWidth="md" >
+<Container component="main"  >
       <CssBaseline />
       <div className={classes.paper}>
         <Typography variant="h3" gutterBottom color="primary" align="center">
@@ -226,33 +227,37 @@ const Chat = ({ location }) => {
                 disabled = {turn ? (turn === name ? false : true) : false}
                 onClick={()=> drawCard()}
                
-                > Draw From Top
+                > Draw From The Top
             </Button>
-            
-            <Grid container  spacing={2} direction="row" justify="space-around" alignItems="center" wrap='nowrap'>
+           
+            <Grid container  direction="row"
+                           justify="space-around"
+                            alignItems="center"
+                            spacing ={0}>
                 
                       
-                        <Grid item xl={6}  >  
-                        <Box mt={6} >  
+                        <Grid item xs  >  
+                       
                             <TextContainer users={users}/>
-                             </Box>
+                           
                         </Grid>
-                        <Grid item xl={6}  >  
-                        <Box mt={6} >
+                        <Grid item xs  >  
+                     
                                 <CardContainer users={users} room={room} card={card} status={status} readyFlag={readyFlag}/>
-                             </Box>
+                             
                         </Grid>
 
-                        <Grid item xl={6}  >  
-                        <Box mt={6} >
+                        <Grid item xs >  
+                       
                                 <DescContainer  card={card} readyFlag={readyFlag}/>
-                             </Box>
+                            
                         </Grid>
 
 
                          
                    
                 </Grid>
+               
 
                 <Button  
                 variant="contained"
@@ -266,16 +271,26 @@ const Chat = ({ location }) => {
             </Button>
             
                 <Box mt={2} >
-                <InfoBar room={room} func={placeInCan} placement={placement} setPlacement={setPlacement}/>
+                <InfoBar room={room} readyFlag={readyFlag} func={placeInCan} placement={placement} setPlacement={setPlacement}/>
             </Box>        
                            
            
         </div>
 
-      
-
+        <Box mt={8} align="center">
+        <Button  
+                variant="contained"
+                
+                className={classes.submit}
+                size="large"
+                disabled = {GameOver ? false : true}
+                onClick={()=> restartGame()}
+                >  Play Again
+        </Button>
+        </Box>
 
     <Box mt={8} align="center">
+        
         <FormControlLabel control ={<Switch onClick={toggleDarkMode}/>} label="Change To Light/Dark Mode"/>
         <Typography variant="body2" color="primary" align="center">
             {'App Built by: '}

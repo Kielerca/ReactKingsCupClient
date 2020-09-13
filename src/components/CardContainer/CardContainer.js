@@ -25,19 +25,19 @@ const CardContainer = ({ users , room,card,status, readyFlag }) => (
  
 <div> 
   
-        <Box  borderColor="primary.main"  margin="auto" border={1}  borderRadius="10%"> 
-            <Grid container spacing={2}  style={{ minWidth: "25vh" }} direction="column"  alignItems="center" justify="center"  >
+     
+            <Grid container spacing={0}  style={{ minWidth: "25vh" }} direction="column"  alignItems="center" justify="center"  >
            
                
-                <Grid item xl={6}   >   
-                <img width={"110"} justifyContent="center"  alignItems="center" alt={card.image} src={((readyFlag === "1") ? (card.image) : (status === "Very Close" ? RED_CARD: (status === "Close" ? BLUE_CARD: BLUE_CARD))) }/>
+                <Grid item xl={1}   >   
+                <img width={"160"} justifyContent="center"  alignItems="center" alt={card.image} src={((readyFlag === "1") ? (card.image) : (status === "Very Close" ? RED_CARD: (status === "Close" ? BLUE_CARD: BLUE_CARD))) }/>
                 </Grid>
                
              
 
             </Grid>
 
-            </Box>
+          
         
 
 </div>

@@ -16,21 +16,24 @@ const countSelected = (num, setPlacement , func) => {
 }
 
 
-const InfoBar = ({ room, func, placement ,setPlacement}) => (
+const InfoBar = ({ room, func, readyFlag, placement ,setPlacement}) => (
   <Grid container
   direction="row"
   justify="center"
   alignItems="center"
   spacing ={1}
   >
-    <Grid item xs>
-    <Button fullWidth variant="contained" color="primary" className="sendButton" onClick={() => countSelected("1", setPlacement, func)}>Place Gently In Can </Button>
+    <Grid item xl>
+    <Button fullWidth variant="contained" color="primary" disabled = {readyFlag === "1" ? false : true} className="sendButton" 
+                        onClick={() => countSelected("1", setPlacement, func)}>Place Gently In Can </Button>
     </Grid>
-    <Grid item xs>
-    <Button fullWidth variant="contained" color="primary" className="sendButton" onClick={() => countSelected("2",setPlacement, func)}>Place In Can</Button>
+    <Grid item xl>
+    <Button fullWidth variant="contained" color="primary"  disabled = {readyFlag === "1" ? false : true} className="sendButton"
+                         onClick={() => countSelected("2",setPlacement, func)}>Place Card In Can</Button>
     </Grid>
-    <Grid item xs>
-      <Button fullWidth variant="contained" color="primary" className="sendButton" onClick={() => countSelected("3", setPlacement, func)}>Place Aggressivly In Can</Button>
+    <Grid item xl>
+      <Button fullWidth variant="contained" color="primary" disabled = {readyFlag === "1" ? false : true} className="sendButton" 
+                        onClick={() => countSelected("3", setPlacement, func)}>Place HARD In Can</Button>
       </Grid>
 
 

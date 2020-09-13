@@ -14,10 +14,10 @@ const DescContainer = ({ card , readyFlag }) => (
     <Grid container  spacing={2} direction="row" justify="space-around" alignItems="center" wrap='nowrap'>
         
         <Grid item xl={6}  justifyContent="center" >   
-            <Box  borderColor="primary.main"  margin="auto" border={1}  borderRadius="10%"> 
-                <Grid container spacing={2}  style={{ minWidth: "25vh" }} direction="column"  alignItems="center" justify="center" >
+            <Box  borderColor="primary.main" style={{ minWidth: "30vh", minHeight: "25vh" }}  margin="auto" border={2}   padding={5} borderRadius="10%"> 
+                <Grid container spacing={2}   direction="column"  alignItems="center" justify="center" >
                 <Grid item xl={6}  >  
-                    <Typography variant="h4" color="primary" >
+                    <Typography variant="h4" color="primary" style={{ minHeight: "5vh" }} >
                         {readyFlag ==="1" ? card.name : "????"}
                     </Typography>
                     </Grid>
