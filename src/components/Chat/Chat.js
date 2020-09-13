@@ -123,7 +123,7 @@ const Chat = ({ location }) => {
   const [userState, setUserState] = useState('');
 
 
-  const ENDPOINT = 'localhost:5000';
+  const ENDPOINT = 'https://react-kings-cup.herokuapp.com/';
 
  
   useEffect(() => {
