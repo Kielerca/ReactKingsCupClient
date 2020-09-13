@@ -97,9 +97,11 @@ export default function SignIn() {
 <Container component="main" maxWidth="xs" >
 <CssBaseline />
 <div className={classes.paper}>
+
   <Avatar className={classes.avatar}>
     <LockOutlinedIcon />
   </Avatar>
+
   <Typography component="h1" variant="h5">
     Join Session
   </Typography>
@@ -129,19 +131,7 @@ export default function SignIn() {
       onChange={(event) => setRoom(event.target.value)}
     />
 
-    <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label" >Who's Joining? (Optional)</InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={userType}
-          onChange={handleChange}
-          label= {"Who's Joining? (Optional)"}
-        >
-          <MenuItem value={"Not SM"}>Team Member</MenuItem>
-          <MenuItem value={"SM"}>Scrum Master / PO</MenuItem>
-        </Select>
-    </FormControl>
+   
 
     <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/chat?name=${name}&room=${room}`}>
     <Button
@@ -150,7 +140,7 @@ export default function SignIn() {
       variant="contained"
       color="primary" 
       className={classes.submit}
-      > Join! </Button>
+      > Play Kings Cup! </Button>
     </Link>
    
     </form>

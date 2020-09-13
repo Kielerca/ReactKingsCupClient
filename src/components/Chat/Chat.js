@@ -22,7 +22,7 @@ import { FormControlLabel, Switch } from '@material-ui/core/';
 import './Chat.css';
 
 
-let GameOver = false;
+
 
 const useStyles = makeStyles((theme) => ({
     palette: {
@@ -114,12 +114,14 @@ const Chat = ({ location }) => {
   const [status, setStatus] = useState('');
   const [turn, setTurn] = useState('');
   const [placement, setPlacement] = useState('');
+  const [gameOver, setGameOver] = useState('');
 
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
   const [card, setCard] = useState('');
   const [readyFlag, setreadyFlag] = useState('');
   const [userState, setUserState] = useState('');
+
 
   const ENDPOINT = 'localhost:5000';
 
@@ -131,7 +133,7 @@ const Chat = ({ location }) => {
 
     setRoom(room);
     setName(name);
-    
+    setGameOver(false);
 
     socket.emit('join', { name, room }, (error) => {
       if(error) {
@@ -150,20 +152,37 @@ const Chat = ({ location }) => {
 
     socket.on("updateTurn", ({users, status, turn}) => { 
         setUsers(users);
-        setStatus(status);
+        
         setTurn(turn);
         setreadyFlag("0") // hide card
 
 
         if (status === "Game Over")
         {
-            GameOver = true;
+            setGameOver(true);
+            alert("Game Over");
         }
+        else if (status === "Circle Broke")
+        {
+            return
+        }
+        else 
+        {
+            setStatus(status);
+        }
+
+
       });
     
     socket.on("roomData", ({ users }) => {
       setUsers(users);
     });
+
+    socket.on("CircleBroke", ({ username }) => {
+        alert("Circle broke by: " +username);
+      });
+
+   
 }, []);
 
 
@@ -194,8 +213,9 @@ const Chat = ({ location }) => {
 
   const restartGame = () => 
   {
-    GameOver = false;
+    setGameOver(false);
     socket.emit("PlayAgain" );
+    alert("Game Restarted! Draw a card to begin!");
   
   };
 
@@ -214,11 +234,12 @@ const Chat = ({ location }) => {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography variant="h3" gutterBottom color="primary" align="center">
-                Kings Cup - You are in Room: {room}
+                Kings Cup 
             </Typography>
-            <Typography variant="h3" gutterBottom color="primary" align="center">
-                Status: {status === "Game Over" ? status : "Game In Progress"}
+            <Typography variant="h6" gutterBottom color="primary" align="center">
+                You are in Room: {room} - {status === "Game Over" ? status : "Game In Progress"}
             </Typography>
+        
             <Button  
                 variant="contained"
                 //color= {readyFlag === "1" ? "primary" :"secondary"}
@@ -283,7 +304,7 @@ const Chat = ({ location }) => {
                 
                 className={classes.submit}
                 size="large"
-                disabled = {GameOver ? false : true}
+                disabled = {gameOver ? false : true}
                 onClick={()=> restartGame()}
                 >  Play Again
         </Button>

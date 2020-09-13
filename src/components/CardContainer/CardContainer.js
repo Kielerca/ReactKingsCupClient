@@ -18,7 +18,7 @@ import Box from '@material-ui/core/Box';
 
 import RED_CARD  from  '../../Assets/JPEG/Red_back.jpg';
 import GREEN_CARD from "../../Assets/JPEG/Green_back.jpg";
-import BLUE_CARD   from "../../Assets/JPEG/blue_back.jpg";
+import YELLOW_CARD   from "../../Assets/JPEG/Yellow_back.jpg";
 
 
 const CardContainer = ({ users , room,card,status, readyFlag }) => (
@@ -30,7 +30,7 @@ const CardContainer = ({ users , room,card,status, readyFlag }) => (
            
                
                 <Grid item xl={1}   >   
-                <img width={"160"} justifyContent="center"  alignItems="center" alt={card.image} src={((readyFlag === "1") ? (card.image) : (status === "Very Close" ? RED_CARD: (status === "Close" ? BLUE_CARD: BLUE_CARD))) }/>
+                <img width={"160"} justifyContent="center"  alignItems="center" alt={card.image} src={((readyFlag === "1") ? (card.image) : (status === "Very Close" ? RED_CARD: (status === "Close" ? YELLOW_CARD: GREEN_CARD))) }/>
                 </Grid>
                
              
