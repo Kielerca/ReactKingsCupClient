@@ -115,6 +115,7 @@ const Chat = ({ location }) => {
   const [turn, setTurn] = useState('');
   const [placement, setPlacement] = useState('');
   const [gameOver, setGameOver] = useState('');
+  const [circleBroke, setCircleBroke] = useState('');
 
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
@@ -134,6 +135,7 @@ const Chat = ({ location }) => {
     setRoom(room);
     setName(name);
     setGameOver(false);
+    setCircleBroke(false);
 
     socket.emit('join', { name, room }, (error) => {
       if(error) {
@@ -179,8 +181,14 @@ const Chat = ({ location }) => {
     });
 
     socket.on("CircleBroke", ({ username }) => {
-        alert("Circle broke by: " +username);
-      });
+        
+        if (circleBroke === false)
+        {
+            alert("Circle broke by: " +username);
+            setCircleBroke(true);
+        }
+       
+    });
 
    
 }, []);
@@ -214,6 +222,7 @@ const Chat = ({ location }) => {
   const restartGame = () => 
   {
     setGameOver(false);
+    setCircleBroke(false);
     socket.emit("PlayAgain" );
     alert("Game Restarted! Draw a card to begin!");
   
