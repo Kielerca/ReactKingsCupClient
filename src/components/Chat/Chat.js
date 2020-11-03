@@ -244,7 +244,7 @@ const Chat = ({ location }) => {
 <Container component="main"  >
       <CssBaseline />
       <div className={classes.paper}>
-        <img width={"300"} justifyContent="center"  alignItems="center" alt={"logoImg"} src={KC_LOGO} />
+        <img width={"400"} justifyContent="center"  alignItems="center" alt={"logoImg"} src={KC_LOGO} />
             <Typography variant="h6" gutterBottom color="primary" align="center">
                 You are in Room: {room} - {status === "Game Over" ? status : "Game In Progress"}
             </Typography>
