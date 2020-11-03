@@ -23,6 +23,8 @@ import Typography from '@material-ui/core/Typography';
 
 import Container from '@material-ui/core/Container';
 
+import KC_LOGO from './kingsCup.png';
+
 import './Join.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -142,6 +144,10 @@ export default function SignIn() {
       className={classes.submit}
       > Play Kings Cup! </Button>
     </Link>
+
+        <Box mt={10} align="center">
+            <img width={"200"} justifyContent="center"  alignItems="center" alt={"logoImg"} src={KC_LOGO} />
+        </Box>
    
     </form>
       </div>
