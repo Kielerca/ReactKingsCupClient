@@ -19,6 +19,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import { FormControlLabel, Switch } from '@material-ui/core/';
 
+import KC_LOGO from '../kingsCup.png';
+
 import './Chat.css';
 
 
@@ -242,9 +244,7 @@ const Chat = ({ location }) => {
 <Container component="main"  >
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography variant="h3" gutterBottom color="primary" align="center">
-                Kings Cup 
-            </Typography>
+        <img width={"300"} justifyContent="center"  alignItems="center" alt={"logoImg"} src={KC_LOGO} />
             <Typography variant="h6" gutterBottom color="primary" align="center">
                 You are in Room: {room} - {status === "Game Over" ? status : "Game In Progress"}
             </Typography>
