@@ -19,7 +19,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import { FormControlLabel, Switch } from '@material-ui/core/';
 
-import KC_LOGO from '../kingsCup.png';
+import KC_LOGO from './kingsCup.png';
 
 import './Chat.css';
 
